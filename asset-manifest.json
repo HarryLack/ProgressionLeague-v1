@@ -1,16 +1,15 @@
 {
-  "main.css": "/ProgressionLeague/static/css/main.812e9ff7.chunk.css",
-  "main.js": "/ProgressionLeague/static/js/main.376d1011.chunk.js",
-  "main.js.map": "/ProgressionLeague/static/js/main.376d1011.chunk.js.map",
-  "static/js/1.03ae7ea8.chunk.js": "/ProgressionLeague/static/js/1.03ae7ea8.chunk.js",
-  "static/js/1.03ae7ea8.chunk.js.map": "/ProgressionLeague/static/js/1.03ae7ea8.chunk.js.map",
-  "static/js/2.45d599a8.chunk.js": "/ProgressionLeague/static/js/2.45d599a8.chunk.js",
-  "static/js/2.45d599a8.chunk.js.map": "/ProgressionLeague/static/js/2.45d599a8.chunk.js.map",
-  "runtime~main.js": "/ProgressionLeague/static/js/runtime~main.58321cdc.js",
-  "runtime~main.js.map": "/ProgressionLeague/static/js/runtime~main.58321cdc.js.map",
-  "static/media/logo.svg": "/ProgressionLeague/static/media/logo.06e73328.svg",
-  "static/css/main.812e9ff7.chunk.css.map": "/ProgressionLeague/static/css/main.812e9ff7.chunk.css.map",
-  "index.html": "/ProgressionLeague/index.html",
-  "precache-manifest.882ae999a1bc6c19c0fc0e1b1dd70a4f.js": "/ProgressionLeague/precache-manifest.882ae999a1bc6c19c0fc0e1b1dd70a4f.js",
-  "service-worker.js": "/ProgressionLeague/service-worker.js"
+  "files": {
+    "main.css": "/ProgressionLeague/static/css/main.e6c13ad2.css",
+    "main.js": "/ProgressionLeague/static/js/main.033df6c9.js",
+    "static/js/787.806b79f7.chunk.js": "/ProgressionLeague/static/js/787.806b79f7.chunk.js",
+    "index.html": "/ProgressionLeague/index.html",
+    "main.e6c13ad2.css.map": "/ProgressionLeague/static/css/main.e6c13ad2.css.map",
+    "main.033df6c9.js.map": "/ProgressionLeague/static/js/main.033df6c9.js.map",
+    "787.806b79f7.chunk.js.map": "/ProgressionLeague/static/js/787.806b79f7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.033df6c9.js"
+  ]
 }
