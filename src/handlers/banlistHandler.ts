@@ -27,7 +27,6 @@ export async function GenerateBanlist() {
 
 
     Object.entries(newList).forEach(([key, value]) => {
-        const list = key;
         value.forEach((id) => {
             //@ts-expect-error typing
             const dbCard = database && database.data.find(element => element.id == id);
@@ -52,7 +51,30 @@ export async function GenerateBanlist() {
     })
 
     Object.entries(oldList).forEach(([key, value]) => {
+        
+        value.forEach((id) => {
+            //@ts-expect-error typing
+            const dbCard = database && database.data.find(element => element.id == id);
+            if (dbCard) {
+                const status = key;
+                let prevStatus = "";
+                if (!newList?.[key as keyof BanlistState]?.includes(id)) {
+                    Object.entries(newList).forEach(([key, value]) => {
+                        if (value.includes(id)) {
 
+                        } else {
+                            prevStatus = LimitType[status]
+                        }
+                    })
+                }
+                if (prevStatus) {
+                    //@ts-expect-error
+                    banlist.removed.push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType["removed"], prevStatus: prevStatus })
+                }
+            } else {
+                console.log("Card not found: ", value)
+            }
+        })
     })
 
     store.dispatch(setBanlist(banlist));
