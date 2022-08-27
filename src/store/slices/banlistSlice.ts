@@ -11,7 +11,7 @@ export interface cardInfo {
     //TODO these
     type: string,
     status: LimitStatus,
-    prevStatus: LimitStatus | "New"
+    prevStatus: LimitStatus | "New" | ""
 }
 
 export type BanlistState = {

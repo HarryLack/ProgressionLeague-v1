@@ -2,7 +2,7 @@ import { BanlistState, cardInfo, LimitType, setBanlist } from "../store/slices/b
 import { store } from "../store/store";
 
 async function ReadBanlistFile(newList?: boolean):Promise<any> {
-    const listSrc = newList ? "/ProgressionList.json" : "/PrevProgressionList.json"
+    const listSrc = newList ? "/lists/new/ProgressionList.json" : "/lists/prev/ProgressionList.json"
 
     const list = await fetch(process.env.PUBLIC_URL + listSrc, { method: "GET" }).then((response) => response.json())
         .then((json) => { return json })
@@ -10,9 +10,9 @@ async function ReadBanlistFile(newList?: boolean):Promise<any> {
 }
 
 async function ParseBanlists() {
-    let newList = {}
+    let newList: Partial<BanlistState> = {}
     await ReadBanlistFile(true).then((response: any) => {newList = response})
-    let oldList = {};
+    let oldList: Partial<BanlistState> = {};
     await ReadBanlistFile().then((response: any) => { oldList = response })
     return { newList, oldList }
 }
@@ -27,21 +27,35 @@ export async function GenerateBanlist() {
 
 
     Object.entries(newList).forEach(([key, value]) => {
-        //@ts-expect-error typing
-        value.forEach((value) => {
+        const list = key;
+        value.forEach((id) => {
             //@ts-expect-error typing
-            const dbCard = database && database.data.find(element => element.id == value);
+            const dbCard = database && database.data.find(element => element.id == id);
             if (dbCard) {
+                const status = key
+                let prevStatus = "";
+                if (!oldList?.[key as keyof BanlistState]?.includes(id)) {
+                    Object.entries(oldList).forEach(([key, value]) => {
+                        if (key !== status && value.includes(id)) {
+                            prevStatus = LimitType[key]
+                        } else {
+                            prevStatus = "New";
+                        }
+                    })
+                }
                 //@ts-expect-error
-                banlist[key].push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType[key]})
+                banlist[key].push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType[status], prevStatus: prevStatus })
             }else{
                 console.log("Card not found: ", value)
             }
         })
     })
 
+    Object.entries(oldList).forEach(([key, value]) => {
+
+    })
+
     store.dispatch(setBanlist(banlist));
 
-    console.log(banlist);
     return true;
 }
