@@ -22,7 +22,7 @@ const App = () => {
               <Typography>Progession League</Typography>
               <Toolbar>
                   
-                  <Tabs onChange={handleChange} centered>
+                  <Tabs value={ value} onChange={handleChange} centered>
                       <Tab label="Banlist" value={0} />
                       <Tab label="Schedule" value={1}/>
                   </Tabs>

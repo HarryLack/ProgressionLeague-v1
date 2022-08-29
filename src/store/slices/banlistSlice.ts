@@ -18,14 +18,16 @@ export type BanlistState = {
     banned: cardInfo[],
     limited: cardInfo[],
     semiLimited: cardInfo[],
-    removed: cardInfo[]
+    removed: cardInfo[],
+    lastChanged: Date
 }
 
 const initialBanlistState: BanlistState = {
     banned: [],
     limited: [],
     semiLimited: [],
-    removed:[]
+    removed: [],
+    lastChanged: new Date(0)
 }
 
 export const banlistSlice = createSlice({
@@ -37,13 +39,16 @@ export const banlistSlice = createSlice({
             state.banned = banned;
             state.limited = limited; state.semiLimited = semiLimited;state.removed= removed
         },
-        addCard: (state, action: PayloadAction<{ card: cardInfo, section: keyof BanlistState }>) => {
+        setDate: (state, action: PayloadAction<Date>) => {
+            state.lastChanged = action.payload;
+        },
+        addCard: (state, action: PayloadAction<{ card: cardInfo, section: keyof Pick<BanlistState, "banned"|"limited"|"semiLimited"|"removed"> }>) => {
             const { card, section } = action.payload
             if (!state[section].indexOf(card)) {
                 state[section].push(card)
             }
         },
-        moveCard: (state, action: PayloadAction<{ card: cardInfo, origin: keyof BanlistState, target?: keyof BanlistState }>) => {
+        moveCard: (state, action: PayloadAction<{ card: cardInfo, origin: keyof Pick<BanlistState, "banned" | "limited" | "semiLimited" | "removed">, target?: keyof Pick<BanlistState, "banned" | "limited" | "semiLimited" | "removed"> }>) => {
             const { card, origin, target } = action.payload
             if (state[origin].indexOf(card)) {
                 state[origin].pop()
@@ -55,7 +60,7 @@ export const banlistSlice = createSlice({
     },
 })
 
-export const { setBanlist, addCard, moveCard } = banlistSlice.actions
+export const { setBanlist,setDate, addCard, moveCard } = banlistSlice.actions
 
 export const selectBanlist = (state: RootState) => state.banlist;
 

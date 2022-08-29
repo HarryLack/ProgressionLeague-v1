@@ -7,12 +7,12 @@ import { store } from "../store/store"
 import * as Style from "./Banlist.styles"
 
 export const BanlistContainer: FunctionComponent = () => {
-	const { banned, limited, semiLimited, removed } = useAppSelector(selectBanlist)
+	const { banned, limited, semiLimited, removed, lastChanged } = useAppSelector(selectBanlist)
 
-	
 	return (
 		//@ts-expect-error fixme typing
 		<Style.BanlistContainerDiv>
+			<h1>Last Updated: Week 3</h1>
 				<BanlistSection title="banned" content={banned} />
 				<BanlistSection title="limited" content={limited} />
 				<BanlistSection title="semiLimited" content={semiLimited} />

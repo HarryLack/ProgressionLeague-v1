@@ -10,9 +10,9 @@ async function ReadBanlistFile(newList?: boolean):Promise<any> {
 }
 
 async function ParseBanlists() {
-    let newList: Partial<BanlistState> = {}
+    let newList: Partial<Omit<BanlistState,"lastChanged">> = {}
     await ReadBanlistFile(true).then((response: any) => {newList = response})
-    let oldList: Partial<BanlistState> = {};
+    let oldList: Partial<Omit<BanlistState, "lastChanged">> = {};
     await ReadBanlistFile().then((response: any) => { oldList = response })
     return { newList, oldList }
 }
@@ -22,8 +22,9 @@ export async function GenerateBanlist() {
             response.json()
         ).catch((err) => console.log(err))
     const { newList, oldList } = await ParseBanlists();
+    const lastModified = await fetch(process.env.PUBLIC_URL + "/lists/new/ProgressionList.json").then((response) => { return response.headers.get("Last-Modified") })
 
-    const banlist: BanlistState = { banned:[], limited:[], semiLimited:[], removed:[] }
+    const banlist: Partial<BanlistState> = { banned: [], limited: [], semiLimited: [], removed: [], lastChanged: lastModified ? new Date(lastModified) : new Date(0) }
 
 
     Object.entries(newList).forEach(([key, value]) => {
@@ -33,7 +34,7 @@ export async function GenerateBanlist() {
             if (dbCard) {
                 const status = key
                 let prevStatus = "";
-                if (!oldList?.[key as keyof BanlistState]?.includes(id)) {
+                if (!oldList?.[key as keyof Omit<BanlistState, "lastChanged">]?.includes(id)) {
                     Object.entries(oldList).forEach(([key, value]) => {
                         if (key !== status && value.includes(id)) {
                             prevStatus = LimitType[key]
@@ -45,20 +46,19 @@ export async function GenerateBanlist() {
                 //@ts-expect-error
                 banlist[key].push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType[status], prevStatus: prevStatus })
             }else{
-                console.log("Card not found: ", value)
+                console.log("Card not found: ", id)
             }
         })
     })
 
     Object.entries(oldList).forEach(([key, value]) => {
-        
         value.forEach((id) => {
             //@ts-expect-error typing
             const dbCard = database && database.data.find(element => element.id == id);
             if (dbCard) {
                 const status = key;
                 let prevStatus = "";
-                if (!newList?.[key as keyof BanlistState]?.includes(id)) {
+                if (!newList?.[key as keyof Omit<BanlistState, "lastChanged">]?.includes(id)) {
                     Object.entries(newList).forEach(([key, value]) => {
                         if (value.includes(id)) {
 
@@ -72,7 +72,7 @@ export async function GenerateBanlist() {
                     banlist.removed.push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType["removed"], prevStatus: prevStatus })
                 }
             } else {
-                console.log("Card not found: ", value)
+                console.log("Card not found: ", id)
             }
         })
     })
