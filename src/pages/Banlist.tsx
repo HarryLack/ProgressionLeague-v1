@@ -1,9 +1,6 @@
-﻿import React, { h, Fragment, FunctionComponent } from "preact"
-import { ReactNode, useEffect } from "react"
-import { GenerateBanlist } from "../handlers/banlistHandler"
+﻿import React, { h, FunctionComponent } from "preact"
 import { useAppSelector } from "../hooks/hooks"
 import { cardInfo, LimitType, selectBanlist } from "../store/slices/banlistSlice"
-import { store } from "../store/store"
 import * as Style from "./Banlist.styles"
 
 export const BanlistContainer: FunctionComponent = () => {
@@ -12,7 +9,7 @@ export const BanlistContainer: FunctionComponent = () => {
 	return (
 		//@ts-expect-error fixme typing
 		<Style.BanlistContainerDiv>
-			<h1>Last Updated: Week 3</h1>
+			<h1>Last Updated: Week 5</h1>
 				<BanlistSection title="banned" content={banned} />
 				<BanlistSection title="limited" content={limited} />
 				<BanlistSection title="semiLimited" content={semiLimited} />
@@ -31,14 +28,24 @@ export const BanlistSection: FunctionComponent<SectionProps> = (props: SectionPr
 	const content: cardInfo[] = Array.prototype.concat(props.content)
 
 	content.sort((a, b) => {
-		if (a.type > b.type) {
+		if (a.name > b.name) {
 			return 1
-		} else if (a.type < b.type) {
+		} else if (a.name < b.name) {
 			return -1
 		} else {
 			return 0
 		}
 	})
+
+	content.sort((a,b) => {
+		if (a.type.includes("Monster")) {
+			return b.type.includes("Monster") ? 0 : -1
+		} else if (a.type.includes("Spell")) {
+			return b.type.includes("Spell") ? 0 : b.type.includes("Monster") ? 1 : -1
+		} else {
+			return 0
+		}
+    })
 
 	//@ts-expect-error typing children aaaaaa
 	return content.length ? <Style.BanlistSectionContainer >
@@ -73,14 +80,20 @@ export const BanlistItem: FunctionComponent<{ card: cardInfo }> = (props) => {
 		if (types) { 
 			typeChecked = `${types[types.length-1]}/${types[types.length - 2]}`
 	}
-		typeColour = type.match(/normal|effect|fusion|link|synchro|xyz/mi)?.[0]
+		typeColour = type.match(/normal|effect|spirit|fusion|link|synchro|xyz/mi)?.[0]
 	}
 	console.log(typeColour);
+
+	if (typeColour == "Spirit") {
+		typeColour = "Effect"
+		typeChecked = typeChecked.replace("Spirit", "Effect")
+    }
+
 	//@ts-expect-error typing?
 	return <Style.BanlistItemContainer type={typeColour}>
 		<Style.BanlistItemContent>{typeChecked}</Style.BanlistItemContent>
 		<Style.BanlistItemContent>{name}</Style.BanlistItemContent>
 		<Style.BanlistItemContent>{status}</Style.BanlistItemContent>
-		<Style.BanlistItemContent>{prevStatus === "New" || "" ? prevStatus : "Was " + prevStatus}</Style.BanlistItemContent>
+		<Style.BanlistItemContent>{status === prevStatus ? "" : prevStatus === "New" || "" ? prevStatus : "Was " + prevStatus}</Style.BanlistItemContent>
 	</Style.BanlistItemContainer>
 }

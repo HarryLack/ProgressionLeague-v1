@@ -30,6 +30,7 @@ export const BanlistSectionTable = styled.table`
 const colours: Record<string, string> = {
     "Normal":"#FDE68A",
     "Effect": "#FF8B53",
+    "Spirit": "FF8B53",
     "Fusion": "#a086b7",
     "Link": "#006ead",
     "Synchro": "#CCCCCC",
