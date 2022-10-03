@@ -9,7 +9,7 @@ export const BanlistContainer: FunctionComponent = () => {
 	return (
 		//@ts-expect-error fixme typing
 		<Style.BanlistContainerDiv>
-			<h1>Last Updated: Week 5</h1>
+			<h1>Last Updated: Week 8</h1>
 				<BanlistSection title="banned" content={banned} />
 				<BanlistSection title="limited" content={limited} />
 				<BanlistSection title="semiLimited" content={semiLimited} />
