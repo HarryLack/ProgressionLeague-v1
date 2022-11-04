@@ -9,7 +9,7 @@ export const BanlistContainer: FunctionComponent = () => {
 	return (
 		//@ts-expect-error fixme typing
 		<Style.BanlistContainerDiv>
-			<h1>Last Updated: Week 8</h1>
+			<h1 style={{ textAlign: "center" }}>Last Updated: Week 12.5 EoE</h1>
 				<BanlistSection title="banned" content={banned} />
 				<BanlistSection title="limited" content={limited} />
 				<BanlistSection title="semiLimited" content={semiLimited} />
@@ -45,6 +45,24 @@ export const BanlistSection: FunctionComponent<SectionProps> = (props: SectionPr
 		} else {
 			return 0
 		}
+	})
+
+	content.sort((a, b) => {
+		if (a.type.includes("Monster") && b.type.includes("Monster")) {
+			if (a.type.includes("Spirit")) {
+				if (b.type.match(/fusion|link|synchro|xyz/mi)?.[0]) {
+					return -1
+                }
+            }
+			if (a.type > b.type) {
+				return 1
+			} else if (a.type < b.type) {
+				return -1
+			} else {
+				return 0
+			}
+		}
+		return 0
     })
 
 	//@ts-expect-error typing children aaaaaa
