@@ -21,7 +21,7 @@ export const BanlistSectionContainer = styled.div`
 `
 
 export const BanlistSectionTable = styled.table`
-    width:50vmax;
+    width:50vw;
     border-collapse: collapse;
     border-spacing: 0;
     justify-content:center;

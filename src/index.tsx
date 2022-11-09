@@ -9,8 +9,6 @@ import { GenerateBanlist } from './handlers/banlistHandler';
 
 const pkg = require('../package.json')
 console.log("Progression League: version", pkg.version);
-
-console.log()
 GenerateBanlist().then(() => { 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

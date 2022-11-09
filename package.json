@@ -1,6 +1,6 @@
 {
   "name": "progression-league",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://harrylack.github.io/ProgressionLeague/",
   "private": true,
   "dependencies": {
@@ -17,8 +17,8 @@
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
     "preact": "^10.10.6",
-    "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-redux": "^8.0.2",
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.5",
@@ -32,8 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "stop": "taskkill -F -IM node.exe",
-    "serve-dev": "npm start"
+    "stop": "taskkill -F -IM node.exe"
   },
   "eslintConfig": {
     "extends": [

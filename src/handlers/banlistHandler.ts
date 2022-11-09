@@ -3,6 +3,7 @@ import { store } from "../store/store";
 
 async function ReadBanlistFile(newList?: boolean): Promise<any> {
     const listSrc = newList ? "/lists/new/ProgressionList.json" : "/lists/prev/ProgressionList.json"
+    //const listSrc = newList ? "/lists/prev/W3.json" : "/lists/prev/W0.json"
 
     const list = await fetch(process.env.PUBLIC_URL + listSrc, { method: "GET" }).then((response) => response.json())
         .then((json) => { return json })
