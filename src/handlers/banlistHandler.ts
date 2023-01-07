@@ -1,4 +1,4 @@
-import { BanlistState, cardInfo, LimitType, setBanlist } from "../store/slices/banlistSlice";
+import { BanlistState, cardInfo, LimitType, setBanlist, setDate } from "../store/slices/banlistSlice";
 import { store } from "../store/store";
 
 async function ReadBanlistFile(newList?: boolean): Promise<any> {
@@ -11,9 +11,9 @@ async function ReadBanlistFile(newList?: boolean): Promise<any> {
 }
 
 async function ParseBanlists() {
-    let newList: Partial<Omit<BanlistState, "lastChanged">> = {}
+    let newList: Partial<BanlistState> = {}
     await ReadBanlistFile(true).then((response: any) => { newList = response })
-    let oldList: Partial<Omit<BanlistState, "lastChanged">> = {};
+    let oldList: Partial<BanlistState> = {};
     await ReadBanlistFile().then((response: any) => { oldList = response })
     return { newList, oldList }
 }
@@ -25,30 +25,36 @@ export async function GenerateBanlist() {
     const { newList, oldList } = await ParseBanlists();
     const lastModified = await fetch(process.env.PUBLIC_URL + "/lists/new/ProgressionList.json").then((response) => { return response.headers.get("Last-Modified") })
 
-    const banlist: Partial<BanlistState> = { banned: [], limited: [], semiLimited: [], removed: [], lastChanged: lastModified ? new Date(lastModified) : new Date(0) }
+    const banlist: Partial<BanlistState> = { banned: [], limited: [], semiLimited: [], removed: [], lastChanged: "" }
 
 
     Object.entries(newList).forEach(([key, value]) => {
-        value.forEach((id) => {
-            //@ts-expect-error typing
-            const dbCard = database && database.data.find(element => element.id == id);
-            if (dbCard) {
-                const status = key
-                let prevStatus = "";
-                Object.entries(oldList).forEach(([key, value]) => {
-                    if (value.includes(id)) {
-                        prevStatus = LimitType[key]
-                    }
-                })
-                //@ts-expect-error
-                banlist[key].push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType[status], prevStatus: prevStatus ? prevStatus : "New" })
-            } else {
-                console.log("Card not found: ", id)
-            }
-        })
+        if (key === "lastChanged" && typeof value === "string") {
+            store.dispatch(setDate(value))
+        } else {
+            //@ts-expect-error fixme
+            value.forEach((id) => {
+                //@ts-expect-error typing
+                const dbCard = database && database.data.find(element => element.id == id);
+                if (dbCard) {
+                    const status = key
+                    let prevStatus = "";
+                    Object.entries(oldList).forEach(([key, value]) => {
+                        if (value.includes(id)) {
+                            prevStatus = LimitType[key]
+                        }
+                    })
+                    //@ts-expect-error
+                    banlist[key].push({ id: value, name: dbCard.name, type: dbCard.type, status: LimitType[status], prevStatus: prevStatus ? prevStatus : "New" })
+                } else {
+                    console.log("Card not found: ", id)
+                }
+            })
+    }
     })
 
     Object.entries(oldList).forEach(([key, value]) => {
+        //@ts-expect-error fixme
         value.forEach((id) => {
             //@ts-expect-error typing
             const dbCard = database && database.data.find(element => element.id == id);

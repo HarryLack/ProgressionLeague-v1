@@ -19,7 +19,7 @@ export type BanlistState = {
     limited: cardInfo[],
     semiLimited: cardInfo[],
     removed: cardInfo[],
-    lastChanged: Date
+    lastChanged: string
 }
 
 const initialBanlistState: BanlistState = {
@@ -27,9 +27,8 @@ const initialBanlistState: BanlistState = {
     limited: [],
     semiLimited: [],
     removed: [],
-    lastChanged: new Date(0)
+    lastChanged: "",
 }
-
 export const banlistSlice = createSlice({
     name: 'banlist',
     initialState: initialBanlistState,
@@ -39,7 +38,7 @@ export const banlistSlice = createSlice({
             state.banned = banned;
             state.limited = limited; state.semiLimited = semiLimited;state.removed= removed
         },
-        setDate: (state, action: PayloadAction<Date>) => {
+        setDate: (state, action: PayloadAction<string>) => {
             state.lastChanged = action.payload;
         },
         addCard: (state, action: PayloadAction<{ card: cardInfo, section: keyof Pick<BanlistState, "banned"|"limited"|"semiLimited"|"removed"> }>) => {

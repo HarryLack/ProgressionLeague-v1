@@ -9,7 +9,7 @@ export const BanlistContainer: FunctionComponent = () => {
 	return (
 		//@ts-expect-error fixme typing
 		<Style.BanlistContainerDiv>
-			<h1 style={{ textAlign: "center" }}>Last Updated: Week 12.5 EoE</h1>
+			<h1 style={{ textAlign: "center" }}>Last Updated: {lastChanged}</h1>
 				<BanlistSection title="banned" content={banned} />
 				<BanlistSection title="limited" content={limited} />
 				<BanlistSection title="semiLimited" content={semiLimited} />
