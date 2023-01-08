@@ -1,5 +1,4 @@
-﻿import { ReactNode } from "react";
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const BanlistContainerDiv = styled.div`
 grid-area: body;
@@ -8,7 +7,6 @@ justify-self:center;
 row-gap: 1vmax;
 width:100%;
 `
-
 
 export const BanlistSectionContainer = styled.div`
     display:grid;
@@ -28,22 +26,22 @@ export const BanlistSectionTable = styled.table`
 `
 
 const colours: Record<string, string> = {
-    "Normal":"#FDE68A",
-    "Effect": "#FF8B53",
-    "Spirit": "FF8B53",
-    "Fusion": "#a086b7",
-    "Link": "#006ead",
-    "Synchro": "#CCCCCC",
-    "XYZ": "#000000",
-    "Spell": "#1D9E74",
-    "Trap":"#BC5A84"
+  Normal: '#FDE68A',
+  Effect: '#FF8B53',
+  Spirit: 'FF8B53',
+  Fusion: '#a086b7',
+  Link: '#006ead',
+  Synchro: '#CCCCCC',
+  XYZ: '#000000',
+  Spell: '#1D9E74',
+  Trap: '#BC5A84'
 }
 
 export const BanlistItemContainer = styled.tr <{ type: keyof typeof colours } >`
 display:grid;
 grid-template-columns: 15% 35% 35% 15%;
     background-color: ${(props) => colours[props.type]};
-    color: ${(props) => props.type=="XYZ" ? "#ffffff" : "#000000"};
+    color: ${(props) => (props.type == 'XYZ' ? '#ffffff' : '#000000')};
 `
 
 export const BanlistItemHeader = styled.th`

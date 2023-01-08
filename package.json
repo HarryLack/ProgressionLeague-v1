@@ -36,14 +36,6 @@
     "eject": "react-scripts eject",
     "stop": "taskkill -F -IM node.exe"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "airbnb",
-      "airbnb/hooks"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
