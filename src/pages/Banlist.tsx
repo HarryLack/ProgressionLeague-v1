@@ -13,8 +13,7 @@ export const BanlistContainer: FunctionComponent = () => {
     // @ts-expect-error fixme typing
     <Style.BanlistContainerDiv>
       <h1 style={{ textAlign: 'center' }}>
-        Last Updated:
-        {lastChanged}
+        Last Updated: {lastChanged}
       </h1>
       <BanlistSection title="banned" content={banned} />
       <BanlistSection title="limited" content={limited} />
@@ -115,7 +114,7 @@ export const BanlistItem: FunctionComponent<{ card: cardInfo }> = (props) => {
   }
   console.log(typeColour)
 
-  if (typeColour == 'Spirit') {
+  if (typeColour === 'Spirit') {
     typeColour = 'Effect'
     typeChecked = typeChecked.replace('Spirit', 'Effect')
   }

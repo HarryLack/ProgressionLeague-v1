@@ -19,7 +19,8 @@ export const BanlistSectionContainer = styled.div`
 `
 
 export const BanlistSectionTable = styled.table`
-    width:50vw;
+max-width:75vw;
+    width:800px;
     border-collapse: collapse;
     border-spacing: 0;
     justify-content:center;
@@ -39,9 +40,10 @@ const colours: Record<string, string> = {
 
 export const BanlistItemContainer = styled.tr <{ type: keyof typeof colours } >`
 display:grid;
+overflow-wrap:break-word;
 grid-template-columns: 15% 35% 35% 15%;
     background-color: ${(props) => colours[props.type]};
-    color: ${(props) => (props.type == 'XYZ' ? '#ffffff' : '#000000')};
+    color: ${(props) => (props.type === 'XYZ' ? '#ffffff' : '#000000')};
 `
 
 export const BanlistItemHeader = styled.th`

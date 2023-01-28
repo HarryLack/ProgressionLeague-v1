@@ -5,22 +5,22 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'standard-with-typescript', 'react-app',
-    'react-app/jest',
+    'standard-with-typescript',
     'plugin:import/typescript'
   ],
   overrides: [
   ],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: './tsconfig.json'
-  },
   plugins: [
     'react'
   ],
   rules: {
     // Typescript cpvers this
     'react/prop-types': 0
+  },
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json'
   }
 }

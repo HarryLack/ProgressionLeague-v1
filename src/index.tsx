@@ -11,14 +11,11 @@ import pkg from '../package.json'
 import { setLoaded } from './store/slices/banlistSlice'
 
 console.log('Progression League: version', pkg.version)
-// eslint-disable-next-line
 GenerateBanlist().then((response) => {
   if (response !== undefined) store.dispatch(setLoaded(true))
 })
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-)
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <Provider store={store}>
         <React.StrictMode>
