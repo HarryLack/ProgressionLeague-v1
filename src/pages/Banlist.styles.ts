@@ -41,7 +41,7 @@ const colours: Record<string, string> = {
 export const BanlistItemContainer = styled.tr <{ type: keyof typeof colours } >`
 display:grid;
 overflow-wrap:break-word;
-grid-template-columns: 15% 35% 35% 15%;
+grid-template-columns: 15% auto 25% 15%;
     background-color: ${(props) => colours[props.type]};
     color: ${(props) => (props.type === 'XYZ' ? '#ffffff' : '#000000')};
 `
