@@ -1,17 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
 import { Provider } from 'react-redux'
 import App from './App'
+import { GenerateBanlist } from './handlers/banlistHandler'
+import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { store } from './store/store'
-import { GenerateBanlist } from './handlers/banlistHandler'
 
 import pkg from '../package.json'
 import { setLoaded } from './store/slices/banlistSlice'
 
 console.log('Progression League: version', pkg.version)
-GenerateBanlist().then((response) => {
+
+// stupid promise thing
+// eslint-disable-next-line
+  GenerateBanlist().then((response) => {
   if (response !== undefined) store.dispatch(setLoaded(true))
 })
 

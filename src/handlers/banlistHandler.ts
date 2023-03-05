@@ -35,7 +35,7 @@ export async function GenerateBanlist (): Promise<any> {
       // @ts-expect-error fixme
       value.forEach((id) => {
         // @ts-expect-error typing
-        const dbCard = database?.data.find((element) => element.id == id)
+        const dbCard = database?.data.find((element) => element.id === Number(id))
         if (dbCard !== undefined) {
           const status = key
           let prevStatus
@@ -59,7 +59,7 @@ export async function GenerateBanlist (): Promise<any> {
     if (typeof value === 'object') {
       value.forEach((id) => {
         // @ts-expect-error typing
-        const dbCard = database?.data.find((element) => element.id == id)
+        const dbCard = database?.data.find((element) => element.id === Number(id))
         if (dbCard !== undefined) {
           let removed = true
           const status = key

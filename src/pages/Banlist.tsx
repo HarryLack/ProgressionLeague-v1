@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'preact'
+import React, { FunctionComponent } from 'react'
 import { useAppSelector } from '../hooks/hooks'
 import { cardInfo, LimitType, selectBanlist } from '../store/slices/banlistSlice'
 import * as Style from './Banlist.styles'
@@ -10,7 +10,6 @@ export const BanlistContainer: FunctionComponent = () => {
 
   return loaded
     ? (
-    // @ts-expect-error fixme typing
     <Style.BanlistContainerDiv>
       <h1 style={{ textAlign: 'center' }}>
         Last Updated: {lastChanged}
@@ -71,10 +70,8 @@ export const BanlistSection: FunctionComponent<SectionProps> = (props: SectionPr
 
   return (content.length > 0)
     ? (
-  // @ts-expect-error fixme typing
     <Style.BanlistSectionContainer>
       <h1 style={{ textAlign: 'center' }}>{LimitType[props.title]}</h1>
-      {/* @ts-expect-error typing children aaaaaa */}
       <Style.BanlistSectionTable>
         <thead>
           {/* @ts-expect-error typing children aaaaaa */}
@@ -90,7 +87,6 @@ export const BanlistSection: FunctionComponent<SectionProps> = (props: SectionPr
     </Style.BanlistSectionContainer>
       )
     : (
-  // @ts-expect-error fixme typing
     <Style.BanlistSectionContainer>
       <h1>{LimitType[props.title]}</h1>
       <p>Nothing yet :smile:</p>

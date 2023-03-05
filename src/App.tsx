@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
-  AppBar, Toolbar, IconButton, Typography, Tabs, Tab, Box
+  AppBar, Toolbar, Typography, Tabs, Tab, Box
 } from '@mui/material'
 import { BanlistContainer } from './pages/Banlist'
 import * as Style from './App.styles'
@@ -13,10 +13,6 @@ function App (): JSX.Element {
   const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
     setValue(newValue)
   }
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <Style.AppContainer>
@@ -35,8 +31,8 @@ function App (): JSX.Element {
         </Toolbar>
       </AppBar>
       <Box style={{ gridArea: 'body', display: 'flex', justifyContent: 'center' }}>
-        {value == 0 && <BanlistContainer />}
-        {value == 1 && <Style.Schedule src={scheduleSrc} />}
+        {value === 0 && <BanlistContainer />}
+        {value === 1 && <Style.Schedule src={scheduleSrc} />}
       </Box>
     </Style.AppContainer>
   )
