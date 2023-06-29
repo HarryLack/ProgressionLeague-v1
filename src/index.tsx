@@ -1,28 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import App from './App'
-import { GenerateBanlist } from './handlers/banlistHandler'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-import { store } from './store/store'
-
+import {store} from './store/store'
 import pkg from '../package.json'
-import { setLoaded } from './store/slices/banlistSlice'
+import {BanlistHandler} from "./handlers/banlistHandler";
 
 console.log('Progression League: version', pkg.version)
-
-// stupid promise thing
-// eslint-disable-next-line
-  GenerateBanlist().then((response) => {
-  if (response !== undefined) store.dispatch(setLoaded(true))
-})
+const elm = document.createElement("div");
+elm.setAttribute("id","root");
+document.body.append(elm)
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <Provider store={store}>
         <React.StrictMode>
-            <App />
+            <App/>
         </React.StrictMode>
     </Provider>
 )
@@ -30,3 +25,6 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
+
+// @ts-ignore
+window.Banlist = BanlistHandler

@@ -25,3 +25,9 @@ yarn-error.log*
 /.vs
 
 /.idea
+
+/_config.yml
+/.eslintrc.js
+/.gitignore
+
+/src/lists
