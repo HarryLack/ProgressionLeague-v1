@@ -1,22 +1,23 @@
 module.exports = {
     env: {
         browser: true,
-        es2021: true
+        es2021: true,
     },
-    extends: [
-        'plugin:react/recommended',
-        'standard-with-typescript',
-        'plugin:import/typescript',
-        'prettier'
-    ],
+    extends: ['airbnb', 'airbnb-typescript', 'airbnb/hooks'],
     overrides: [],
-    plugins: [
-        'react'
-    ],
     rules: {
-        'react/prop-types': 0
+        'react/prop-types': 0,
+        // babel takes care of this
+        'react/react-in-jsx-scope': 0,
+        // This is dumb
+        'max-len': 0,
+        'react/function-component-definition': 0,
+        '@typescript-eslint/naming-convention': 1,
+        'linebreak-style': ['error', 'windows'],
+        // Redux relies on this, TODO figure out workaround
+        'no-param-reassign': 0,
+        "no-underscore-dangle":0
     },
-    parser: '@babel/eslint-parser',
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',

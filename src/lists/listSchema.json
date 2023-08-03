@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Banlist",
+  "description": "A Banlist for progression league",
+  "type": "object",
+  "properties": {
+    "lastChanged": {
+      "type": "string"
+    },
+    "banned": {
+      "type": "array"
+    },
+    "limited": {
+      "type": "array"
+    },
+    "semiLimited": {
+      "type": "array"
+    }
+  }
+}

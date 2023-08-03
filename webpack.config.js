@@ -1,5 +1,5 @@
+const webpack = require('webpack')
 const path = require('path')
-const webpack = require("webpack")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -8,8 +8,18 @@ module.exports = (env) => {
     return {
         mode: env.development ? 'development' : 'production',
         entry: './src/index.tsx',
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve(__dirname, 'dist'),
+            publicPath: 'auto',
+        },
         module: {
             rules: [
+                {
+                    test: /\.(js|jsx)$/,
+                    use: 'babel-loader',
+                    exclude: /node_modules/,
+                },
                 {
                     test: /\.tsx?$/,
                     use: 'ts-loader',
@@ -24,6 +34,9 @@ module.exports = (env) => {
         },
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
+            alias: {
+                      '@mui/styled-engine': '@mui/styled-engine-sc'
+        },
         },
         plugins: [
             new HtmlWebpackPlugin({
@@ -35,21 +48,10 @@ module.exports = (env) => {
                     { from: 'src/lists', to: 'lists' },
                 ],
             }),
-            new webpack.ProvidePlugin({
-                process: 'process/browser',
-            }),
-            new webpack.ProvidePlugin({
-                Buffer: ['buffer', 'Buffer'],
-            }),
         ],
-        output: {
-            filename: 'bundle.js',
-            path: path.resolve(__dirname, 'dist'),
-            publicPath: 'auto',
-        },
         devtool: 'inline-source-map',
         devServer: {
-            static: './dist',
+            'static': { directory: './dist' },
         },
     }
 }
