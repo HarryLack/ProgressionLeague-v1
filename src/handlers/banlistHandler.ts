@@ -173,8 +173,6 @@ class _BanlistHandler {
 
 async function ReadBanlistFile(newList?: boolean): Promise<any> {
   const listSrc = newList === true ? 'lists/new/ProgressionList.json' : 'lists/prev/ProgressionList.json';
-  // const listSrc = newList ? "/lists/prev/W3.json" : "/lists/prev/W0.json"
-  console.log(listSrc);
   const list = await fetch(__webpack_public_path__ + listSrc, { method: 'GET' }).then(async (response) => response.json())
     .then((json) => json);
   return list;
