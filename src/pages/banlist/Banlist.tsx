@@ -29,7 +29,6 @@ const BanlistContainer: FunctionComponent = () => {
       if (!comparing) {
         setComparing(true);
       }
-
       BanlistHandler.setCurrentList(current);
       BanlistHandler.setPrevList(prev);
       setCompareText(`Comparing: ${current.replace('W', 'Week ')} to ${prev.replace('W', 'Week ')} `);
